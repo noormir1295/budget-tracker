@@ -45,3 +45,13 @@ request.onsuccess = function (event) {
 request.onerror = function (event) {
     console.log(event.target.errorCode);
 };
+
+function saveRecord(record) {
+    const transaction = db.transaction(["pending"], "readwrite");
+    const store = transaction.objectStore("pending");
+    store.add(record);
+}
+
+
+//event listener to run the checkDatabase function when the app comes back online 
+window.addEventListener("online", checkDatabase);
